@@ -1,0 +1,20 @@
+config:
+    target: "http://localhost:5000/api/v1"
+    phases:
+        - duration: 60
+          arrivalRate: 100
+          name: Warm up
+        - duration: 60
+          arrivalRate: 100
+          rampTo: 500
+          name: Ramp up load
+        - duration: 120
+          arrivalRate: 500
+          name: Sustained load
+scenarios:
+    - name: "Query 1 level join"
+      flow:
+          # Please remove auth middleware or add a access_token here.
+          # Or add login to the setup
+          - get:
+                url: "/users?pageIndex=0&pageSize=1000"
